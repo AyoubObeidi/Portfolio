@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-*: initial;
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-raised: #f0f0f0;
+  --color-border: #e0e0e0;
+  --color-border-strong: #bdbdbd;
+  --color-fg: #171717;
+  --color-fg-muted: #525252;
+  --color-fg-subtle: #6b6b6b;
+  --color-on-fg: #fafafa;
+  --color-accent: #4f5bd5;
+  --color-on-accent: #ffffff;
+  --color-focus: #2563eb;
+  --color-heat-0: #ebebeb;
+  --color-heat-1: #c4c4c4;
+  --color-heat-2: #8f8f8f;
+  --color-heat-3: #555555;
+  --color-heat-4: #171717;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  --container-page: 42rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* HomeIntro reveals these. Hidden only when JS runs; the delayed animation is a failsafe. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-intro] > * {
+    visibility: hidden;
+    animation: intro-failsafe 0s 3s forwards;
+  }
+}
+
+@keyframes intro-failsafe {
+  to {
+    visibility: visible;
+  }
 }

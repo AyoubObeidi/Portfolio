@@ -10,6 +10,15 @@ const PATHS = {
     "M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
   ],
   clock: ["M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z", "M12 6v6l4 2"],
+  external: [
+    "M15 3h6v6",
+    "M10 14 21 3",
+    "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6",
+  ],
+  file: [
+    "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z",
+    "M14 2v6h6",
+  ],
 } as const;
 
 interface UiIconProps {

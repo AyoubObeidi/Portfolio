@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
 import { HomeIntro } from "@/components/animation/HomeIntro";
 import { Bio } from "@/components/sections/Bio";
 import { ContactRow } from "@/components/sections/ContactRow";
 import { ContributionGraph } from "@/components/sections/ContributionGraph";
+import { Projects } from "@/components/sections/Projects";
 import { ProfileHeader } from "@/components/sections/ProfileHeader";
 import { SkillsMarquee } from "@/components/sections/SkillsMarquee";
 import { SocialCards } from "@/components/sections/SocialCards";
@@ -29,6 +29,7 @@ export default function Home() {
         <SectionHeading id="skills">My skills</SectionHeading>
         <SkillsMarquee />
       </section>
+      <Projects />
       <section aria-label="GitHub activity">
         <Suspense
           fallback={
@@ -42,15 +43,6 @@ export default function Home() {
           <ContributionGraph />
         </Suspense>
       </section>
-      <p className="text-sm text-fg-muted">
-        Want the longer story?{" "}
-        <Link
-          href="/projects"
-          className="font-medium text-fg underline underline-offset-4"
-        >
-          View projects
-        </Link>
-      </p>
     </HomeIntro>
   );
 }

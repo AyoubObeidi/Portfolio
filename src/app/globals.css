@@ -14,11 +14,12 @@
   --color-accent: #4f5bd5;
   --color-on-accent: #ffffff;
   --color-focus: #2563eb;
-  --color-heat-0: #ebebeb;
-  --color-heat-1: #c4c4c4;
-  --color-heat-2: #8f8f8f;
-  --color-heat-3: #555555;
-  --color-heat-4: #171717;
+  /* GitHub's light-theme contribution greens, so the graph reads like the one on github.com. */
+  --color-heat-0: #ebedf0;
+  --color-heat-1: #9be9a8;
+  --color-heat-2: #40c463;
+  --color-heat-3: #30a14e;
+  --color-heat-4: #216e39;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1rem;

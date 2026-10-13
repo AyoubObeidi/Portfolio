@@ -1,22 +1,44 @@
 import { profile } from "@/lib/profile";
-import { IconButton } from "@/components/ui/IconButton";
+import { BrandIcon } from "@/components/ui/BrandIcon";
+import { LinkButton } from "@/components/ui/LinkButton";
+import { Panel } from "@/components/ui/Panel";
+import { UiIcon } from "@/components/ui/UiIcon";
 
 export function Footer() {
   return (
-    <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border py-8 text-sm text-fg-muted">
-      <a
-        href={`mailto:${profile.email}`}
-        className="underline-offset-4 transition-colors hover:text-fg hover:underline"
-      >
-        {profile.email}
-      </a>
-      <ul className="flex gap-2">
-        {profile.links.map((link) => (
-          <li key={link.label}>
-            <IconButton href={link.href} label={link.label} icon={link.icon} />
+    <footer aria-labelledby="contact" className="mt-16 pb-8">
+      <Panel className="flex flex-col items-center gap-2 px-4 py-8 text-center">
+        <h2 id="contact" className="text-xl font-semibold tracking-tight">
+          Contact me
+        </h2>
+        <ul className="mt-3 flex flex-wrap justify-center gap-2">
+          {profile.links.map((link) => (
+            <li key={link.label}>
+              <LinkButton
+                href={link.href}
+                icon={<BrandIcon icon={link.icon} className="size-3.5" />}
+              >
+                {link.label}
+              </LinkButton>
+            </li>
+          ))}
+          <li>
+            <LinkButton
+              href={`mailto:${profile.email}`}
+              icon={<UiIcon name="mail" />}
+            >
+              Email
+            </LinkButton>
           </li>
-        ))}
-      </ul>
+          {profile.resume && (
+            <li>
+              <LinkButton href={profile.resume} icon={<UiIcon name="file" />}>
+                Resume
+              </LinkButton>
+            </li>
+          )}
+        </ul>
+      </Panel>
     </footer>
   );
 }

@@ -50,6 +50,7 @@ export interface Profile {
   timeZone: string;
   avatar?: { src: string; alt: string };
   email: string;
+  resume?: string;
   bio: BioSegment[][];
   socialCards: SocialCard[];
   links: ProfileLink[];
@@ -64,10 +65,12 @@ export const profile: Profile = {
   status: "[PLACEHOLDER] Building something",
   location: "Djelfa, Algeria",
   // IANA time zone for the live clock, e.g. "Africa/Casablanca".
-  timeZone: "GMT",
+  timeZone: "Africa/Algiers",
   // Add a photo to public/ and set e.g. { src: "/avatar.jpg", alt: "Portrait of …" }.
   avatar: undefined,
   email: "ayoubmacos05@gmail.com",
+  // Add your CV to public/ and set e.g. "/resume.pdf" to show a Resume button in the footer.
+  resume: undefined,
   bio: [
     ["Hi, I'm a ", { strong: "Frontend Developer" }],
     ["[PLACEHOLDER] What you're building, and who it helps."],

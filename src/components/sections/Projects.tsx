@@ -1,28 +1,32 @@
 import Link from "next/link";
 import { projects } from "@/lib/projects";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ProjectCard } from "./ProjectCard";
+
+const FEATURED_COUNT = 2;
 
 export function Projects() {
   return (
-    <section aria-labelledby="projects">
-      <SectionHeading id="projects">My projects</SectionHeading>
-      <ul className="flex flex-col gap-4">
-        {projects.map((project) => (
-          <li key={project.repo}>
+    <section aria-labelledby="selected-work">
+      <SectionHeader
+        id="selected-work"
+        title="Selected work"
+        aside={
+          <Link
+            href="/projects"
+            className="text-sm text-fg-muted transition-colors hover:text-fg"
+          >
+            All projects →
+          </Link>
+        }
+      />
+      <ul className="flex flex-col gap-3">
+        {projects.slice(0, FEATURED_COUNT).map((project) => (
+          <li key={project.slug}>
             <ProjectCard project={project} />
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-sm text-fg-muted">
-        Want the longer story?{" "}
-        <Link
-          href="/projects"
-          className="font-medium text-fg underline underline-offset-4"
-        >
-          View projects
-        </Link>
-      </p>
     </section>
   );
 }

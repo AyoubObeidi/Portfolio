@@ -1,43 +1,45 @@
-import { siGithub } from "simple-icons";
+import Link from "next/link";
 import type { Project } from "@/lib/projects";
-import { BrandIcon } from "@/components/ui/BrandIcon";
-import { LinkButton } from "@/components/ui/LinkButton";
-import { UiIcon } from "@/components/ui/UiIcon";
+import { externalLinkProps } from "@/lib/utils";
 
 interface ProjectLinksProps {
   project: Project;
-  // Adds a "Case study" button; off on the case-study page itself.
+  // Adds a "Case study" link; off on the case-study page itself.
   showCaseStudy?: boolean;
 }
 
+const external = "text-fg-muted transition-colors hover:text-fg";
+
 export function ProjectLinks({ project, showCaseStudy }: ProjectLinksProps) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex gap-4 text-sm">
       {showCaseStudy && (
-        <LinkButton
+        <Link
           href={`/projects/${project.slug}`}
-          label={`${project.name} case study`}
-          icon={<UiIcon name="file" className="size-3" />}
+          aria-label={`${project.name} case study`}
+          className="border-b border-border-strong text-fg transition-colors hover:border-fg"
         >
           Case study
-        </LinkButton>
+        </Link>
       )}
       {project.live && (
-        <LinkButton
+        <a
           href={project.live}
-          label={`${project.name} live site`}
-          icon={<UiIcon name="external" className="size-3" />}
+          aria-label={`${project.name} live site (opens in a new tab)`}
+          {...externalLinkProps(project.live)}
+          className={external}
         >
-          Live
-        </LinkButton>
+          Live <span aria-hidden="true">↗</span>
+        </a>
       )}
-      <LinkButton
+      <a
         href={project.repo}
-        label={`${project.name} on GitHub`}
-        icon={<BrandIcon icon={siGithub} className="size-3" />}
+        aria-label={`${project.name} on GitHub (opens in a new tab)`}
+        {...externalLinkProps(project.repo)}
+        className={external}
       >
-        GitHub
-      </LinkButton>
+        GitHub <span aria-hidden="true">↗</span>
+      </a>
     </div>
   );
 }

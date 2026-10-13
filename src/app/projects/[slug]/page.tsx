@@ -28,13 +28,13 @@ export default async function CaseStudyPage({
   const CaseStudy = await loadCaseStudy(slug);
 
   return (
-    <article className="pt-4 pb-10">
+    <article>
       <CaseStudyHeader project={project} />
       <div className="max-w-prose">
         <CaseStudy />
       </div>
       <section aria-labelledby="tech" className="mt-10">
-        <h2 id="tech" className="text-base font-semibold">
+        <h2 id="tech" className="mb-3 text-base font-semibold">
           Technologies used
         </h2>
         <TechTags tech={project.tech} />

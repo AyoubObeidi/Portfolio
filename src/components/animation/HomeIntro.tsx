@@ -36,7 +36,7 @@ export function HomeIntro({ children }: HomeIntroProps) {
   );
 
   return (
-    <div ref={scope} data-intro className="flex flex-col gap-10">
+    <div ref={scope} data-intro className="flex flex-col gap-16">
       {children}
     </div>
   );

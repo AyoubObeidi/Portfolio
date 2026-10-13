@@ -1,19 +1,34 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { externalLinkProps } from "@/lib/utils";
+import { cn, externalLinkProps } from "@/lib/utils";
 
 interface LinkButtonProps {
   href: string;
-  icon: ReactNode;
   children: ReactNode;
-  // Extra context for screen readers when the visible label is ambiguous, e.g. "Live" on several cards.
+  icon?: ReactNode;
+  variant?: "primary" | "outline";
+  // Extra context for screen readers when the visible label is ambiguous.
   label?: string;
 }
 
-const className =
-  "inline-flex h-7 items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 text-xs font-medium text-fg transition-colors hover:border-border-strong";
+const VARIANTS = {
+  primary: "bg-fg px-4 font-medium text-on-fg hover:bg-fg-body",
+  outline:
+    "border border-border-control bg-surface px-3.5 text-fg hover:border-border-strong",
+};
 
-export function LinkButton({ href, icon, children, label }: LinkButtonProps) {
+export function LinkButton({
+  href,
+  children,
+  icon,
+  variant = "outline",
+  label,
+}: LinkButtonProps) {
+  const className = cn(
+    "inline-flex h-9 items-center gap-2 rounded-lg text-sm whitespace-nowrap transition-colors",
+    VARIANTS[variant],
+  );
+
   if (href.startsWith("/")) {
     return (
       <Link href={href} aria-label={label} className={className}>

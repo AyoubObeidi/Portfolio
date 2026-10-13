@@ -60,7 +60,7 @@ export function Marquee({ rows }: MarqueeProps) {
       onMouseEnter={pause}
       onMouseLeave={play}
       className={cn(
-        "flex flex-col gap-4",
+        "flex flex-col gap-3",
         animated && "overflow-hidden mask-x-from-90% mask-x-to-100%",
       )}
     >
@@ -71,7 +71,7 @@ export function Marquee({ rows }: MarqueeProps) {
               <ul
                 key={String(copy)}
                 aria-hidden={copy || undefined}
-                className="flex shrink-0 gap-8 pr-8"
+                className="flex shrink-0 gap-11 pr-11"
               >
                 {row.map((item, j) => (
                   <li key={j}>{item}</li>

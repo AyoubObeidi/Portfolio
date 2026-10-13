@@ -1,21 +1,14 @@
 import { profile } from "@/lib/profile";
+import { cn } from "@/lib/utils";
 
 export function Bio() {
   return (
-    <ul className="max-w-prose list-disc space-y-1.5 pl-5 text-sm text-fg-muted marker:text-fg-subtle">
-      {profile.bio.map((line, i) => (
-        <li key={i}>
-          {line.map((segment, j) =>
-            typeof segment === "string" ? (
-              segment
-            ) : (
-              <strong key={j} className="font-semibold text-fg">
-                {segment.strong}
-              </strong>
-            ),
-          )}
-        </li>
+    <div className="flex max-w-prose flex-col gap-3 text-base leading-[1.65] text-pretty">
+      {profile.bio.map((paragraph, i) => (
+        <p key={i} className={cn(i === 0 ? "text-fg-body" : "text-fg-muted")}>
+          {paragraph}
+        </p>
       ))}
-    </ul>
+    </div>
   );
 }

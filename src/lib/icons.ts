@@ -3,7 +3,7 @@ import type { SimpleIcon } from "simple-icons";
 export type BrandIconData = Pick<SimpleIcon, "title" | "path"> &
   Partial<Pick<SimpleIcon, "hex">>;
 
-// Highest luminance that still gives 3:1 contrast (WCAG non-text) against --color-bg (#fafafa, L≈0.955).
+// Highest luminance that still gives 3:1 contrast (WCAG non-text) against --color-bg (#fafaf9, L≈0.955).
 const MAX_LUMINANCE = 0.285;
 
 function luminance([r, g, b]: number[]) {

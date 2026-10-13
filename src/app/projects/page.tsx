@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
-import { ProjectCard } from "@/components/sections/ProjectCard";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ProjectEntry } from "@/components/sections/ProjectEntry";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -11,17 +10,20 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <section aria-labelledby="projects" className="pt-4">
-      <SectionHeading id="projects" as="h1">
-        My projects
-      </SectionHeading>
-      <ul className="flex flex-col gap-4">
-        {projects.map((project) => (
-          <li key={project.repo}>
-            <ProjectCard project={project} headingLevel="h2" />
+    <>
+      <h1 className="text-display font-semibold tracking-[-0.02em]">
+        Projects
+      </h1>
+      <p className="mt-2 text-base text-fg-muted">
+        Things I&apos;ve designed, built and shipped.
+      </p>
+      <ul className="mt-10 flex flex-col gap-14">
+        {projects.map((project, i) => (
+          <li key={project.slug}>
+            <ProjectEntry project={project} number={i + 1} />
           </li>
         ))}
       </ul>
-    </section>
+    </>
   );
 }

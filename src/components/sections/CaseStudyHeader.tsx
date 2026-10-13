@@ -16,10 +16,10 @@ export function CaseStudyHeader({ project }: CaseStudyHeaderProps) {
       >
         All projects
       </Link>
-      <h1 className="mt-6 text-2xl font-semibold tracking-tight">
+      <h1 className="mt-6 text-display font-semibold tracking-[-0.02em]">
         {project.name}
       </h1>
-      <p className="mt-2 max-w-prose text-sm text-fg-muted">
+      <p className="mt-2 max-w-prose text-base leading-[1.65] text-fg-muted">
         {project.summary}
       </p>
       <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
@@ -40,9 +40,9 @@ export function CaseStudyHeader({ project }: CaseStudyHeaderProps) {
         alt={project.image.alt}
         width={1280}
         height={800}
-        sizes="(min-width: 42rem) 42rem, 100vw"
+        sizes="(min-width: 42.5rem) 42.5rem, 100vw"
         preload
-        className="mt-6 aspect-16/10 w-full rounded-md border border-border object-cover object-top"
+        className="mt-6 aspect-16/10 w-full rounded-xl border border-border object-cover object-top"
       />
     </header>
   );

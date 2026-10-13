@@ -8,10 +8,10 @@ export const contentType = "image/png";
 // ImageResponse can't read CSS variables, so these mirror --color-bg, --color-fg,
 // --color-fg-muted and --color-border in globals.css.
 const colors = {
-  bg: "#fafafa",
-  fg: "#171717",
-  muted: "#525252",
-  border: "#e0e0e0",
+  bg: "#fafaf9",
+  fg: "#1c1c1a",
+  muted: "#6b6b66",
+  border: "#e8e8e5",
 };
 
 export default async function Image({

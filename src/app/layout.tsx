@@ -17,10 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s · [PLACEHOLDER] Your name",
-    default: "[PLACEHOLDER] Your name",
+    template: "%s · Ayoub Obeidi",
+    default: "Ayoub Obeidi · Frontend Developer",
   },
-  description: "[PLACEHOLDER] One sentence about who you are and what you do.",
+  description:
+    "Ayoub Obeidi builds fast, considered interfaces for the web, mostly with React and Next.js.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -40,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <div className="mx-auto flex min-h-dvh w-full max-w-page flex-col px-4">
+        <div className="mx-auto flex min-h-dvh w-full max-w-page flex-col px-4 pt-7 sm:px-6">
           <SiteNav />
           <main id="main" className="flex-1">
             {children}

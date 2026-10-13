@@ -4,11 +4,11 @@ interface TechTagsProps {
 
 export function TechTags({ tech }: TechTagsProps) {
   return (
-    <ul className="mt-2 flex flex-wrap gap-1.5">
+    <ul className="flex flex-wrap gap-1.5">
       {tech.map((name) => (
         <li
           key={name}
-          className="rounded-md border border-border bg-surface-raised px-2 py-0.5 text-2xs font-medium"
+          className="rounded-md bg-surface-raised px-2 py-1 font-mono text-xs text-fg-body"
         >
           {name}
         </li>

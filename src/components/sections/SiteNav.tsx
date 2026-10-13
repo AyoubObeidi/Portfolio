@@ -1,40 +1,24 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-
-const NAV_ITEMS = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/analytics", label: "Analytics" },
-] as const;
+import { Suspense } from "react";
+import { profile } from "@/lib/profile";
+import { LocalTime } from "./LocalTime";
+import { NavLinks } from "./NavLinks";
 
 export function SiteNav() {
-  const pathname = usePathname();
+  const city = profile.location.split(",")[0];
 
   return (
-    <nav aria-label="Main" className="py-5">
-      <ul className="flex items-center gap-5 text-sm">
-        {NAV_ITEMS.map(({ href, label }) => {
-          const active =
-            href === "/" ? pathname === "/" : pathname.startsWith(href);
-          return (
-            <li key={href}>
-              <Link
-                href={href}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "transition-colors hover:text-fg",
-                  active ? "font-semibold text-fg" : "text-fg-muted",
-                )}
-              >
-                {label}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+    <nav
+      aria-label="Main"
+      className="mb-12 flex items-center justify-between gap-4"
+    >
+      <NavLinks />
+      <p className="font-mono text-xs whitespace-nowrap text-fg-subtle">
+        <span className="sr-only">Local time in {city}: </span>
+        <Suspense fallback={<span>--:--</span>}>
+          <LocalTime timeZone={profile.timeZone} />
+        </Suspense>
+        <span aria-hidden="true"> · {city}</span>
+      </p>
     </nav>
   );
 }

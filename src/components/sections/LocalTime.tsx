@@ -13,11 +13,10 @@ export function LocalTime({ timeZone }: LocalTimeProps) {
   const [now, setNow] = useState(() => new Date());
   const formatter = useMemo(
     () =>
-      new Intl.DateTimeFormat("en-US", {
+      new Intl.DateTimeFormat("en-GB", {
         timeZone,
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
       }),
     [timeZone],
   );

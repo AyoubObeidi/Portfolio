@@ -2,29 +2,44 @@
 
 @theme {
   --color-*: initial;
-  --color-bg: #fafafa;
+  /* Warm off-white neutrals, from the Portfolio.dc.html mockup. */
+  --color-bg: #fafaf9;
   --color-surface: #ffffff;
-  --color-surface-raised: #f0f0f0;
-  --color-border: #e0e0e0;
-  --color-border-strong: #bdbdbd;
-  --color-fg: #171717;
-  --color-fg-muted: #525252;
-  --color-fg-subtle: #6b6b6b;
-  --color-on-fg: #fafafa;
-  --color-accent: #4f5bd5;
-  --color-on-accent: #ffffff;
+  --color-surface-raised: #f0f0ee;
+  --color-placeholder: #ececea;
+  --color-border: #e8e8e5;
+  --color-border-control: #e2e2df;
+  --color-border-strong: #c8c8c4;
+  --color-fg: #1c1c1a;
+  --color-fg-body: #3a3a37;
+  --color-fg-muted: #6b6b66;
+  /* The mockup's #8a8a84 is under 4.5:1 on --color-bg; darkened just enough for WCAG AA. */
+  --color-fg-subtle: #71716b;
+  --color-on-fg: #fafaf9;
   --color-focus: #2563eb;
-  /* GitHub's light-theme contribution greens, so the graph reads like the one on github.com. */
-  --color-heat-0: #ebedf0;
-  --color-heat-1: #9be9a8;
-  --color-heat-2: #40c463;
-  --color-heat-3: #30a14e;
-  --color-heat-4: #216e39;
+  --color-success-bg: oklch(0.93 0.07 150);
+  --color-success-fg: oklch(0.48 0.15 150);
+  --color-success-dot: oklch(0.65 0.2 150);
+  --color-heat-0: #ececea;
+  --color-heat-1: oklch(0.87 0.08 150);
+  --color-heat-2: oklch(0.75 0.12 150);
+  --color-heat-3: oklch(0.6 0.14 150);
+  --color-heat-4: oklch(0.45 0.12 150);
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1rem;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.25rem;
+  --text-md: 0.9375rem;
+  --text-md--line-height: 1.5rem;
+  --text-card: 1.0625rem;
+  --text-card--line-height: 1.5rem;
+  --text-title: 1.375rem;
+  --text-title--line-height: 1.75rem;
+  --text-display: 1.625rem;
+  --text-display--line-height: 2rem;
 
-  --container-page: 42rem;
+  --container-page: 42.5rem;
 }
 
 @theme inline {

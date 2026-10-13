@@ -1,47 +1,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
-import { TechTags } from "@/components/ui/TechTags";
-import { ProjectLinks } from "./ProjectLinks";
 
 interface ProjectCardProps {
   project: Project;
-  headingLevel?: "h2" | "h3";
 }
 
-export function ProjectCard({
-  project,
-  headingLevel: Heading = "h3",
-}: ProjectCardProps) {
-  const Subheading = Heading === "h2" ? "h3" : "h4";
-
+// Compact card for the home page; the whole card links to the case study.
+export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="flex flex-col gap-4 border border-dashed border-border p-4 sm:flex-row">
+    <article className="relative flex flex-wrap gap-5 rounded-xl border border-border bg-surface p-4 transition-colors has-[a:hover]:border-border-strong">
       <Image
         src={project.image.src}
         alt={project.image.alt}
         width={1280}
         height={800}
         sizes="(min-width: 640px) 240px, 100vw"
-        className="aspect-16/10 w-full shrink-0 rounded-md border border-border object-cover object-top sm:w-60 sm:self-center"
+        className="aspect-16/10 w-full shrink-0 grow basis-50 rounded-lg border border-border object-cover object-top sm:max-w-60"
       />
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <Heading className="text-base font-semibold">
+      <div className="flex min-w-0 grow basis-65 flex-col gap-2">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="text-card font-semibold tracking-[-0.01em]">
             <Link
               href={`/projects/${project.slug}`}
-              className="underline-offset-4 hover:underline"
+              className="after:absolute after:inset-0 after:rounded-xl"
             >
               {project.name}
             </Link>
-          </Heading>
-          <ProjectLinks project={project} showCaseStudy />
+          </h3>
+          <span className="font-mono text-xs text-fg-subtle">
+            {project.year}
+          </span>
         </div>
-        <p className="mt-2 text-sm text-fg-muted">{project.description}</p>
-        <Subheading className="mt-3 text-xs font-semibold">
-          Technologies used
-        </Subheading>
-        <TechTags tech={project.tech} />
+        <p className="text-sm leading-[1.6] text-pretty text-fg-muted">
+          {project.summary}
+        </p>
+        <p className="mt-auto font-mono text-xs text-fg-subtle">
+          {project.tech.slice(0, 4).join(" · ")}
+        </p>
       </div>
     </article>
   );

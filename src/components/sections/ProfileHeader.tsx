@@ -1,12 +1,8 @@
-import { Suspense } from "react";
 import Image from "next/image";
 import { profile } from "@/lib/profile";
-import { UiIcon } from "@/components/ui/UiIcon";
-import { LocalTime } from "./LocalTime";
 
 function initials(name: string) {
   return name
-    .replace(/\[.*?\]/g, "")
     .trim()
     .split(/\s+/)
     .map((word) => word[0])
@@ -17,43 +13,40 @@ function initials(name: string) {
 
 export function ProfileHeader() {
   return (
-    <header className="flex items-center gap-4 pt-6 sm:gap-6">
+    <header className="flex items-center gap-5">
       {profile.avatar ? (
         <Image
           src={profile.avatar.src}
           alt={profile.avatar.alt}
-          width={96}
-          height={96}
-          priority
-          className="size-20 shrink-0 rounded-md object-cover sm:size-24"
+          width={72}
+          height={72}
+          preload
+          className="size-18 shrink-0 rounded-xl object-cover"
         />
       ) : (
         <div
           aria-hidden="true"
-          className="grid size-20 shrink-0 place-items-center rounded-md border border-border bg-surface-raised text-2xl font-semibold text-fg-muted sm:size-24"
+          className="grid size-18 shrink-0 place-items-center rounded-xl bg-placeholder text-title font-medium text-fg-body"
         >
           {initials(profile.name)}
         </div>
       )}
 
-      <div className="min-w-0">
-        <h1 className="text-xl font-semibold tracking-tight text-balance sm:text-2xl">
+      <div className="flex min-w-0 flex-col gap-1.5">
+        <h1 className="text-display font-semibold tracking-[-0.02em]">
           {profile.name}
         </h1>
-        <p className="font-mono text-xs text-fg-muted">{profile.handle}</p>
-        <p className="mt-1.5 text-sm font-medium">{profile.status}</p>
-        <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-fg-muted">
-          <span className="inline-flex items-center gap-1">
-            <UiIcon name="mapPin" className="size-3" />
-            {profile.location}
-          </span>
-          <span aria-hidden="true">·</span>
-          <span className="inline-flex items-center gap-1">
-            <UiIcon name="clock" className="size-3" />
-            <Suspense fallback={<span>{profile.timeZone}</span>}>
-              <LocalTime timeZone={profile.timeZone} />
-            </Suspense>
-          </span>
+        <p className="flex flex-wrap items-center gap-2.5 text-sm text-fg-muted">
+          <span>{profile.role}</span>
+          {profile.available && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-success-bg px-2.5 py-0.5 text-xs text-success-fg">
+              <span
+                aria-hidden="true"
+                className="size-1.5 rounded-full bg-success-dot"
+              />
+              Open to work
+            </span>
+          )}
         </p>
       </div>
     </header>

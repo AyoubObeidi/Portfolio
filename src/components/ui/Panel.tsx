@@ -8,7 +8,12 @@ interface PanelProps {
 
 export function Panel({ children, className }: PanelProps) {
   return (
-    <div className={cn("border border-dashed border-border p-4", className)}>
+    <div
+      className={cn(
+        "rounded-xl border border-border bg-surface p-4",
+        className,
+      )}
+    >
       {children}
     </div>
   );

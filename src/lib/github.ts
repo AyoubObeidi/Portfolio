@@ -106,18 +106,6 @@ function monthOf(date: string) {
   return MONTH.format(new Date(`${date}T00:00:00Z`));
 }
 
-// Label a week column when its first day starts a new month, skipping a cramped first label.
-export function monthLabels(weeks: ContributionDay[][]): (string | null)[] {
-  return weeks.map((week, i) => {
-    const month = monthOf(week[0].date);
-    if (i === 0) {
-      const nextChange = weeks.findIndex((w) => monthOf(w[0].date) !== month);
-      return nextChange === -1 || nextChange >= 3 ? month : null;
-    }
-    return month !== monthOf(weeks[i - 1][0].date) ? month : null;
-  });
-}
-
 export function monthlyTotals(weeks: ContributionDay[][]) {
   const totals = new Map<string, number>();
   for (const day of weeks.flat()) {

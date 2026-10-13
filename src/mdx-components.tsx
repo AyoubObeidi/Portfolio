@@ -9,17 +9,17 @@ const components: MDXComponents = {
     <h3 className="mt-6 mb-2 text-sm font-semibold text-fg" {...props} />
   ),
   p: (props) => (
-    <p className="mb-4 text-sm leading-6 text-fg-muted" {...props} />
+    <p className="mb-4 text-base leading-[1.65] text-fg-body" {...props} />
   ),
   ul: (props) => (
     <ul
-      className="mb-4 list-disc space-y-1 pl-5 text-sm leading-6 text-fg-muted"
+      className="mb-4 list-disc space-y-1 pl-5 text-base leading-[1.65] text-fg-body"
       {...props}
     />
   ),
   ol: (props) => (
     <ol
-      className="mb-4 list-decimal space-y-1 pl-5 text-sm leading-6 text-fg-muted"
+      className="mb-4 list-decimal space-y-1 pl-5 text-base leading-[1.65] text-fg-body"
       {...props}
     />
   ),

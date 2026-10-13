@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
+import { PageIntro } from "@/components/animation/PageIntro";
 import { ProjectEntry } from "@/components/sections/ProjectEntry";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <>
+    <PageIntro>
       <h1 className="text-display font-semibold tracking-[-0.02em]">
         Projects
       </h1>
@@ -24,6 +25,6 @@ export default function ProjectsPage() {
           </li>
         ))}
       </ul>
-    </>
+    </PageIntro>
   );
 }

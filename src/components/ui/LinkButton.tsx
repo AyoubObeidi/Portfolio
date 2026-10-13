@@ -25,7 +25,7 @@ export function LinkButton({
   label,
 }: LinkButtonProps) {
   const className = cn(
-    "inline-flex h-9 items-center gap-2 rounded-lg text-sm whitespace-nowrap transition-colors",
+    "inline-flex h-9 items-center gap-2 rounded-lg text-sm whitespace-nowrap transition-[color,background-color,border-color,scale] duration-150 ease-out active:scale-97",
     VARIANTS[variant],
   );
 

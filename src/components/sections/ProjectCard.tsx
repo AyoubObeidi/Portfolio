@@ -9,15 +9,17 @@ interface ProjectCardProps {
 // Compact card for the home page; the whole card links to the case study.
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="relative flex flex-wrap gap-5 rounded-xl border border-border bg-surface p-4 transition-colors has-[a:hover]:border-border-strong">
-      <Image
-        src={project.image.src}
-        alt={project.image.alt}
-        width={1280}
-        height={800}
-        sizes="(min-width: 640px) 240px, 100vw"
-        className="aspect-16/10 w-full shrink-0 grow basis-50 rounded-lg border border-border object-cover object-top sm:max-w-60"
-      />
+    <article className="group relative flex flex-wrap gap-5 rounded-xl border border-border bg-surface p-4 transition-colors has-[a:focus-visible]:border-border-strong has-[a:hover]:border-border-strong">
+      <div className="aspect-16/10 w-full shrink-0 grow basis-50 overflow-hidden rounded-lg border border-border sm:max-w-60">
+        <Image
+          src={project.image.src}
+          alt={project.image.alt}
+          width={1280}
+          height={800}
+          sizes="(min-width: 640px) 240px, 100vw"
+          className="size-full object-cover object-top transition-[scale,filter] duration-200 ease-(--ease-out) group-has-[a:focus-visible]:grayscale-0 group-has-[a:hover]:grayscale-0 motion-safe:group-has-[a:focus-visible]:scale-[1.04] motion-safe:group-has-[a:hover]:scale-[1.04] [@media(hover:hover)]:grayscale"
+        />
+      </div>
       <div className="flex min-w-0 grow basis-65 flex-col gap-2">
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="text-card font-semibold tracking-[-0.01em]">

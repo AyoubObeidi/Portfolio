@@ -10,27 +10,63 @@ is taught, and the video plays on the site.
 
 ## My role
 
-[PLACEHOLDER] What you were responsible for.
+I built Vertex on my own: the Sanity content model and Studio, the Next.js
+site, the search pipeline, the video ingestion scripts and the Vercel
+deployment. Every change went through a pull request with automated review
+from CodeRabbit.
 
 ## Constraints
 
-[PLACEHOLDER] Time, budget, technical or team limits you worked within.
+- **Time.** The first full version, from the first commit to the deployed
+  site, took five days.
+- **A function time limit.** Search runs several model calls in a row, and
+  all of them have to finish inside one serverless function's time limit.
+- **A free model.** Search first ran on a free-tier model, which was slow.
+- **Secrets stay on the server.** The browser only ever posts to
+  `/api/search`. It never sees the model key, the search endpoint or the
+  Sanity tokens.
 
 ## Process
 
 Authors create and manage courses in Sanity, and a Next.js site serves them to
 learners. Search is built with the AI SDK, and Clerk handles sign-in.
 
-[PLACEHOLDER] How search finds the right moment in a video, and the key
-decisions and trade-offs behind it.
+**Search writes its own queries.** `/api/search` connects to Sanity's Context
+MCP server, gives the model the deployed schema and a system prompt, and lets
+it write GROQ queries over the catalog. After a few round trips, a final step
+returns structured results. Zod validates them, so only results grounded in
+what the queries returned reach the page.
+
+**Transcripts are prepared ahead of time.** Offline scripts fetch each video's
+captions with yt-dlp and store the transcript as short timestamped chunks. A
+hand-written chapter list gives every video a table of contents, so search
+matches chapters first and falls back to the noisier transcript only when it
+has to. Whole transcripts never reach the model.
+
+**Results open at the right second.** A video result links to the lesson page
+with a start time, and the player passes it to the video provider's embed. The
+video plays on the site, starting at that moment.
+
+**Progress is saved for each learner.** When a lesson's video ends, the lesson
+is marked complete. A My Learning page lists started courses and resumes each
+one at the last second watched.
 
 ## Outcome
 
 Live at [vertex-iota-ashy.vercel.app](https://vertex-iota-ashy.vercel.app).
 
-[PLACEHOLDER] Add results if you have them, such as courses, learners or search
-quality.
+- Ten sample courses in Sanity, with course, lesson, search and My Learning
+  pages.
+- Search now runs on a Gemini model, after the free-tier model proved too slow
+  for its chain of calls.
 
 ## What I'd do differently
 
-[PLACEHOLDER] What you'd change with hindsight.
+I'd test the model's speed before building search around it. The free-tier
+model took about 13 seconds for a trivial reply, and search makes several
+calls, so it timed out both locally and in production.
+
+I'd also set the function's time limit from a measured slow query, not a
+guess. My first limit was 60 seconds, below search's own 90-second deadline.
+The platform cut slow searches off first, and learners got a bare error the
+search page couldn't show.

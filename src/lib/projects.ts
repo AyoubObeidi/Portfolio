@@ -51,7 +51,7 @@ export const projects: Project[] = [
     slug: "theft-detection",
     name: "Theft Detection",
     summary: "A video surveillance system that spots shoplifting and loitering across live camera feeds.",
-    role: "[PLACEHOLDER] Your role",
+    role: "Contributor",
     year: "2026",
     description:
       "A video surveillance system for retail spaces. It watches several camera feeds at once to detect shoplifting, loitering and restricted-area intrusions, then sounds an alarm and sends alerts by email and Telegram.",

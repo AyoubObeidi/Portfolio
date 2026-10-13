@@ -3,12 +3,13 @@
 import { useRef, type ReactNode } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 
-interface HomeIntroProps {
+interface PageIntroProps {
   children: ReactNode;
+  className?: string;
 }
 
-// The single page-load sequence. Children start hidden only when JS runs (see globals.css).
-export function HomeIntro({ children }: HomeIntroProps) {
+// The page-load sequence. Children start hidden only when JS runs (see globals.css).
+export function PageIntro({ children, className }: PageIntroProps) {
   const scope = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -25,6 +26,8 @@ export function HomeIntro({ children }: HomeIntroProps) {
             duration: 0.5,
             ease: "power2.out",
             stagger: 0.06,
+            // Let hydration finish its first frames so the sequence doesn't stutter.
+            delay: 0.1,
           },
         );
       });
@@ -36,7 +39,7 @@ export function HomeIntro({ children }: HomeIntroProps) {
   );
 
   return (
-    <div ref={scope} data-intro className="flex flex-col gap-16">
+    <div ref={scope} data-intro className={className}>
       {children}
     </div>
   );

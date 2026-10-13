@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ClickSound } from "@/components/ui/ClickSound";
 import { InlineScript } from "@/components/ui/InlineScript";
 import { Footer } from "@/components/sections/Footer";
 import { SiteNav } from "@/components/sections/SiteNav";
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <Footer />
         </div>
+        <ClickSound />
       </body>
     </html>
   );

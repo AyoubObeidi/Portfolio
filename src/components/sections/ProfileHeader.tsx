@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { OpenToWorkBadge } from "@/components/animation/OpenToWorkBadge";
 import { profile } from "@/lib/profile";
 
 function initials(name: string) {
@@ -39,13 +40,7 @@ export function ProfileHeader() {
         <p className="flex flex-wrap items-center gap-2.5 text-sm text-fg-muted">
           <span>{profile.role}</span>
           {profile.available && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-success-bg px-2.5 py-0.5 text-xs text-success-fg">
-              <span
-                aria-hidden="true"
-                className="size-1.5 rounded-full bg-success-dot"
-              />
-              Open to work
-            </span>
+            <OpenToWorkBadge after={0.8} />
           )}
         </p>
       </div>

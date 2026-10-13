@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { HomeIntro } from "@/components/animation/HomeIntro";
+import { PageIntro } from "@/components/animation/PageIntro";
 import { Bio } from "@/components/sections/Bio";
 import { ContactRow } from "@/components/sections/ContactRow";
 import {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <HomeIntro>
+    <PageIntro className="flex flex-col gap-16">
       <div className="flex flex-col gap-6">
         <ProfileHeader />
         <Bio />
@@ -48,6 +48,6 @@ export default function Home() {
         </Suspense>
       </section>
       <Projects />
-    </HomeIntro>
+    </PageIntro>
   );
 }

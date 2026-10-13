@@ -7,12 +7,28 @@ then sounds an alarm and sends an alert.
 
 ## My role
 
-[PLACEHOLDER] What you were responsible for. This project has a second
-contributor on GitHub, so say which parts were yours.
+[vahapogut](https://github.com/vahapogut) started Theft Detection and wrote
+most of it: the camera pipeline, the detection logic, the dashboard and the
+alerts described below. I worked on it after that and added:
+
+- **Video file analysis.** Upload a recorded clip and run it through the same
+  detection pipeline to get back an annotated video and its alerts. It loads
+  its own model instances so it never disturbs the live feeds' tracking. It
+  also measures the alert cooldown in video time, not clock time, because files
+  are processed faster than real time.
+- **Deleting alerts.** Delete alerts from the history one at a time or all at
+  once, along with their snapshot images.
+- **English throughout.** I translated the remaining Turkish interface text and
+  log messages.
+- **A presentation deck.** A script generates a slide deck about the project
+  with python-pptx.
 
 ## Constraints
 
-[PLACEHOLDER] Time, budget, technical or team limits you worked within.
+- **Someone else's codebase.** My changes had to fit the existing structure:
+  a FastAPI backend, a SQLite database and a Next.js dashboard.
+- **Running beside live feeds.** Video file analysis had to run alongside the
+  live cameras without breaking their person tracking.
 
 ## Process
 
@@ -50,9 +66,14 @@ everything else keeps working.
   memory use, weekly alert trends, and a searchable alert history that exports
   to CSV.
 
-[PLACEHOLDER] Add results if you have them, such as accuracy, false-alarm rate
-or where it was tested.
+- Recorded clips can be analysed from the dashboard, with an annotated video to
+  review or download.
 
 ## What I'd do differently
 
-[PLACEHOLDER] What you'd change with hindsight.
+My video file analysis copies the live loop's detection logic instead of
+sharing it, so a fix in one doesn't reach the other. I'd pull that logic into
+one shared module.
+
+I'd also measure how often it's right on a set of labelled clips. There are no
+accuracy or false-alarm numbers yet.

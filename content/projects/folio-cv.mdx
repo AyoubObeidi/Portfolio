@@ -9,11 +9,17 @@ upload. You open the builder and start typing.
 
 ## My role
 
-[PLACEHOLDER] What you were responsible for.
+I designed and built Folio CV on my own: the design system and landing page,
+the editor, the templates, the export pipeline, the ATS check and the CI.
 
 ## Constraints
 
-[PLACEHOLDER] Time, budget, technical or team limits you worked within.
+- **No server, by choice.** Everything had to work in the browser and deploy
+  as static files.
+- **A size budget.** The landing page had to stay under 150 KB of gzipped
+  JavaScript.
+- **Accessibility.** The target was WCAG 2.1 AA.
+- **Time.** I built it in eight milestones over three days.
 
 ## Process
 
@@ -53,8 +59,8 @@ check panel load only when someone uses them.
 - Built to WCAG 2.1 AA and checked with axe-core and keyboard walkthroughs.
 - The site sets no cookies and makes no third-party requests.
 
-[PLACEHOLDER] Add usage numbers if you have them (visitors, CVs exported).
-
 ## What I'd do differently
 
-[PLACEHOLDER] What you'd change with hindsight.
+I'd plan for scripts beyond the Latin alphabet from the start. The PDF export
+embeds static fonts, so a CV with Arabic text or emoji can't be downloaded
+directly. The export falls back to the browser's print dialog.

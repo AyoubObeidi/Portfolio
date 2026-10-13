@@ -1,0 +1,58 @@
+## Problem
+
+Shoplifting in shops and supermarkets often goes unnoticed because nobody can
+watch every camera feed all the time. Theft Detection watches the feeds instead.
+It flags shoplifting, loitering, intrusions into restricted areas and fighting,
+then sounds an alarm and sends an alert.
+
+## My role
+
+[PLACEHOLDER] What you were responsible for. This project has a second
+contributor on GitHub, so say which parts were yours.
+
+## Constraints
+
+[PLACEHOLDER] Time, budget, technical or team limits you worked within.
+
+## Process
+
+**Several cameras at once.** Each camera, whether a local webcam or an RTSP
+network camera, reads frames on its own thread. One slow feed doesn't hold up
+the others or freeze the dashboard. People are tracked per camera, keyed by
+camera and track ID, so IDs from different feeds never clash.
+
+**Behaviour, not just objects.** YOLOv8 detects people and items, and a YOLOv8
+pose model tracks their posture. Together they catch:
+
+- a hand moving from a picked-up item to a pocket or bag
+- someone staying in a zone longer than a set threshold
+- a wrist crossing into a restricted area, such as behind the till
+- sudden bending in low-visibility aisles
+
+**Zones drawn on the live feed.** Operators draw security zones as polygons over
+the live video in the dashboard. The coordinates are mapped to a fixed 1280×720
+grid, so a zone stays in the same place whatever screen it was drawn on.
+
+**Alerts that always play.** The siren is synthesised in the browser with the
+Web Audio API instead of loading an audio file, with a 3-second cooldown to
+avoid alarm fatigue. Alerts and snapshots also go out by email and Telegram.
+
+**Optional face recognition.** Faces can be registered on a blacklist, which
+raises a high-priority alarm, or a whitelist for staff and regular customers.
+If the face recognition library isn't installed, that panel turns off and
+everything else keeps working.
+
+## Outcome
+
+- A FastAPI backend that streams detections over WebSockets to a Next.js
+  dashboard.
+- The dashboard shows live feeds, a heatmap of activity per camera, CPU and
+  memory use, weekly alert trends, and a searchable alert history that exports
+  to CSV.
+
+[PLACEHOLDER] Add results if you have them, such as accuracy, false-alarm rate
+or where it was tested.
+
+## What I'd do differently
+
+[PLACEHOLDER] What you'd change with hindsight.

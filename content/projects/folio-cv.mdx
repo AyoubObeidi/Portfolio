@@ -1,0 +1,60 @@
+## Problem
+
+Most free CV builders ask for an account, store your CV on their servers, or
+lock the PDF export behind a paywall. Many also use multi-column layouts that
+applicant tracking systems (ATS) read badly.
+
+Folio CV is a CV builder with none of that: no sign-up, no server and no
+upload. You open the builder and start typing.
+
+## My role
+
+[PLACEHOLDER] What you were responsible for.
+
+## Constraints
+
+[PLACEHOLDER] Time, budget, technical or team limits you worked within.
+
+## Process
+
+**No server at all.** The site is a static export of Next.js 16, with no API
+routes, Server Actions, middleware or database. CVs are saved in the browser's
+IndexedDB and never leave the device. JSON backups move a CV to another device.
+
+**One versioned document.** A CV keeps its content, its template and its design
+(fonts, colour, spacing, paper) apart. Every read from IndexedDB and every
+import goes through a migration step and then zod validation, so CVs saved by
+older versions keep loading.
+
+**A PDF that matches the preview.** Each template is a React component sized in
+real units. The same component drives the live preview, the example pages and
+the export. To build the PDF, the app renders the template offscreen, reads
+where the browser placed every line, rule and link, and draws exactly that with
+`pdf-lib`, embedding the fonts. The text in the PDF is real and selectable,
+which is what an ATS needs. Word and plain-text exports use the same render
+model.
+
+**An ATS check you can act on.** A pure function checks contact details,
+section headings, bullet length, dates, page count and layout. Each issue links
+to the field that causes it, and the panel says plainly that the rules are
+guidance, not a guarantee.
+
+**Small by default.** The editor, drag and drop, the export libraries and the
+check panel load only when someone uses them.
+
+## Outcome
+
+- Live at [folio-cv-theta.vercel.app](https://folio-cv-theta.vercel.app), with
+  nine templates. Only one uses two columns, and it is labelled "less ATS-safe".
+- Exports to PDF, Word (`.docx`), plain text and JSON backup.
+- CI runs type checks, lint, formatting, unit tests, the build and a bundle
+  budget on every push. The build fails if the landing page goes over 150 KB of
+  gzipped JavaScript.
+- Built to WCAG 2.1 AA and checked with axe-core and keyboard walkthroughs.
+- The site sets no cookies and makes no third-party requests.
+
+[PLACEHOLDER] Add usage numbers if you have them (visitors, CVs exported).
+
+## What I'd do differently
+
+[PLACEHOLDER] What you'd change with hindsight.

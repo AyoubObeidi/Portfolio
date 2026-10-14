@@ -8,7 +8,20 @@ interface ProjectLinksProps {
   showCaseStudy?: boolean;
 }
 
-const external = "text-fg-muted transition-colors hover:text-fg";
+const external =
+  "group link-underline text-fg-muted transition-colors hover:text-fg";
+
+// Nudges the ↗ toward where the link goes.
+function ExternalArrow() {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-block transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-px motion-safe:group-hover:-translate-y-px"
+    >
+      ↗
+    </span>
+  );
+}
 
 export function ProjectLinks({ project, showCaseStudy }: ProjectLinksProps) {
   return (
@@ -29,7 +42,7 @@ export function ProjectLinks({ project, showCaseStudy }: ProjectLinksProps) {
           {...externalLinkProps(project.live)}
           className={external}
         >
-          Live <span aria-hidden="true">↗</span>
+          Live <ExternalArrow />
         </a>
       )}
       <a
@@ -38,7 +51,7 @@ export function ProjectLinks({ project, showCaseStudy }: ProjectLinksProps) {
         {...externalLinkProps(project.repo)}
         className={external}
       >
-        GitHub <span aria-hidden="true">↗</span>
+        GitHub <ExternalArrow />
       </a>
     </div>
   );

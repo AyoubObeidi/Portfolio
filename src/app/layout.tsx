@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ClickSound } from "@/components/ui/ClickSound";
 import { InlineScript } from "@/components/ui/InlineScript";
 import { Footer } from "@/components/sections/Footer";
@@ -42,14 +43,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <div className="mx-auto flex min-h-dvh w-full max-w-page flex-col px-4 pt-7 sm:px-6">
-          <SiteNav />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
+        <div className="flex min-h-dvh flex-col">
+          <div className="mx-auto flex w-full max-w-page flex-1 flex-col px-4 pt-7 sm:px-6">
+            <SiteNav />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+          </div>
           <Footer />
         </div>
         <ClickSound />
+        <Analytics />
       </body>
     </html>
   );

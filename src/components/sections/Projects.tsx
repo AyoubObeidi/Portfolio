@@ -14,9 +14,15 @@ export function Projects() {
         aside={
           <Link
             href="/projects"
-            className="text-sm text-fg-muted transition-colors hover:text-fg"
+            className="group link-underline text-sm text-fg-muted transition-colors hover:text-fg"
           >
-            All projects →
+            All projects{" "}
+            <span
+              aria-hidden="true"
+              className="inline-block transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-0.5"
+            >
+              →
+            </span>
           </Link>
         }
       />

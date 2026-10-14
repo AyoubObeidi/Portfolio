@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { LiquidMetalRim } from "@/components/animation/LiquidMetalRim";
 import { cn, externalLinkProps } from "@/lib/utils";
 
 interface LinkButtonProps {
@@ -12,10 +13,24 @@ interface LinkButtonProps {
 }
 
 const VARIANTS = {
-  primary: "bg-fg px-4 font-medium text-on-fg hover:bg-fg-body",
+  primary:
+    "relative isolate overflow-hidden px-4 font-medium text-fg shadow-metal",
   outline:
     "border border-border-control bg-surface px-3.5 text-fg hover:border-border-strong",
 };
+
+// Liquid-metal rim behind a glossy light face, after Paper Design's chroma-glass buttons.
+function LiquidMetalFace() {
+  return (
+    <>
+      <LiquidMetalRim />
+      <span
+        aria-hidden
+        className="absolute inset-[3px] -z-10 rounded-[calc(var(--radius-lg)-3px)] bg-linear-to-b from-surface to-surface-raised shadow-metal-inset"
+      />
+    </>
+  );
+}
 
 export function LinkButton({
   href,
@@ -25,15 +40,21 @@ export function LinkButton({
   label,
 }: LinkButtonProps) {
   const className = cn(
-    "inline-flex h-9 items-center gap-2 rounded-lg text-sm whitespace-nowrap transition-[color,background-color,border-color,scale] duration-150 ease-out active:scale-97",
+    "inline-flex h-9 items-center gap-2 rounded-lg text-sm whitespace-nowrap transition-[color,background-color,border-color,translate,scale] duration-150 ease-out motion-safe:hover:-translate-y-px active:translate-y-0 active:scale-97",
     VARIANTS[variant],
+  );
+  const content = (
+    <>
+      {variant === "primary" && <LiquidMetalFace />}
+      {icon}
+      {children}
+    </>
   );
 
   if (href.startsWith("/")) {
     return (
       <Link href={href} aria-label={label} className={className}>
-        {icon}
-        {children}
+        {content}
       </Link>
     );
   }
@@ -45,8 +66,7 @@ export function LinkButton({
       {...externalLinkProps(href)}
       className={className}
     >
-      {icon}
-      {children}
+      {content}
     </a>
   );
 }

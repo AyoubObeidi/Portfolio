@@ -20,11 +20,19 @@
   --color-success-bg: oklch(0.93 0.07 150);
   --color-success-fg: oklch(0.48 0.15 150);
   --color-success-dot: oklch(0.65 0.2 150);
+  --color-danger-fg: oklch(0.5 0.17 25);
+  /* Analytics chart series. Both keep 3:1 against --color-surface for non-text contrast. */
+  --color-chart-visitors: oklch(0.55 0.1 185);
+  --color-chart-pageviews: oklch(0.55 0.19 15);
   --color-heat-0: #ececea;
   --color-heat-1: oklch(0.87 0.08 150);
   --color-heat-2: oklch(0.75 0.12 150);
   --color-heat-3: oklch(0.6 0.14 150);
   --color-heat-4: oklch(0.45 0.12 150);
+  /* Chrome for the liquid-metal rim on the primary LinkButton (shader + CSS fallback). */
+  --color-chrome-light: #ffffff;
+  --color-chrome-mid: #aaaaac;
+  --color-chrome-dark: #6e6e72;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1rem;
@@ -41,11 +49,68 @@
 
   --container-page: 42.5rem;
 
+  /* Glossy primary button: soft lift outside, lit top edge inside. */
+  --shadow-metal: 0 1px 2px oklch(0.2 0.01 90 / 0.08), 0 6px 14px -6px oklch(0.2 0.01 90 / 0.22);
+  --shadow-metal-inset: inset 0 1px 0 oklch(1 0 0 / 0.9), inset 0 -1px 2px oklch(0.2 0.01 90 / 0.06);
+
   /* Lifts the browser window in ScreenshotFrame off its mat. */
   --shadow-window: 0 1px 2px oklch(0.2 0.01 90 / 0.06), 0 8px 24px -6px oklch(0.2 0.01 90 / 0.12);
 
   /* Strong ease-out for UI feedback (press, enter). */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Static chrome shown before the shader loads, without JS, or without WebGL. */
+@utility bg-liquid-metal {
+  background: linear-gradient(
+    100deg,
+    var(--color-chrome-mid),
+    var(--color-chrome-light) 30%,
+    var(--color-chrome-dark) 55%,
+    var(--color-chrome-light) 80%,
+    var(--color-chrome-mid)
+  );
+}
+
+/* Single-line text links: an underline draws in from the left on hover or focus.
+   Reduced motion fades it in instead of scaling it. */
+@utility link-underline {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms var(--ease-out);
+  }
+
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transform: none;
+      opacity: 0;
+      transition: opacity 150ms ease;
+    }
+
+    &:focus-visible::after,
+    &:hover::after {
+      opacity: 1;
+    }
+  }
 }
 
 @theme inline {

@@ -27,7 +27,7 @@ const components: MDXComponents = {
     <a
       href={href}
       {...externalLinkProps(href)}
-      className="font-medium text-fg underline underline-offset-4"
+      className="font-medium text-fg underline decoration-border-strong underline-offset-4 transition-[text-decoration-color] duration-150 hover:decoration-fg"
       {...props}
     />
   ),

@@ -14,7 +14,7 @@ export function CaseStudyHeader({ project }: CaseStudyHeaderProps) {
       <PageIntro>
         <Link
           href="/projects"
-          className="text-sm text-fg-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
+          className="link-underline text-sm text-fg-muted transition-colors hover:text-fg"
         >
           All projects
         </Link>

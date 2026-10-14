@@ -1,21 +1,29 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { PageIntro } from "@/components/animation/PageIntro";
+import { AnalyticsFallback } from "@/components/sections/AnalyticsFallback";
+import { AnalyticsReport } from "@/components/sections/AnalyticsReport";
 
 export const metadata: Metadata = {
   title: "Analytics",
-  description: "Traffic for this site, from Vercel Web Analytics.",
+  description: "Real traffic for this site, from Vercel Web Analytics.",
 };
 
-// Placeholder until the Vercel Web Analytics API is wired up (see CLAUDE.md).
-export default function AnalyticsPage() {
+export default function AnalyticsPage({ searchParams }: PageProps<"/analytics">) {
   return (
-    <>
+    <PageIntro>
       <h1 className="text-display font-semibold tracking-[-0.02em]">
         Analytics
       </h1>
       <p className="mt-2 text-base text-fg-muted">
-        Visitor stats aren&apos;t connected yet. Once they are, this page will
-        show real traffic for this site.
+        Real traffic for this site, straight from Vercel Web Analytics.
+        Updated every 30 minutes.
       </p>
-    </>
+      <div className="mt-8">
+        <Suspense fallback={<AnalyticsFallback />}>
+          <AnalyticsReport searchParams={searchParams} />
+        </Suspense>
+      </div>
+    </PageIntro>
   );
 }

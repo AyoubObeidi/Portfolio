@@ -12,10 +12,10 @@ export function TopList({ title, items }: TopListProps) {
 
   return (
     <Panel>
-      <h3 className="flex items-baseline justify-between text-meta">
-        <span className="font-medium text-fg">{title}</span>
+      <div className="flex items-baseline justify-between">
+        <h3 className="text-meta font-medium text-fg">{title}</h3>
         <span className="text-2xs text-fg-subtle">Visitors</span>
-      </h3>
+      </div>
       {items.length === 0 ? (
         <p className="mt-3 text-sm text-fg-muted">Nothing recorded yet.</p>
       ) : (

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { LiquidMetalRim } from "@/components/animation/LiquidMetalRim";
+import { NewTabNote } from "@/components/ui/NewTabNote";
 import { cn, externalLinkProps } from "@/lib/utils";
 
 interface LinkButtonProps {
@@ -59,14 +60,12 @@ export function LinkButton({
     );
   }
 
+  const linkProps = externalLinkProps(href);
+
   return (
-    <a
-      href={href}
-      aria-label={label}
-      {...externalLinkProps(href)}
-      className={className}
-    >
+    <a href={href} aria-label={label} {...linkProps} className={className}>
       {content}
+      {linkProps.target && !label && <NewTabNote />}
     </a>
   );
 }

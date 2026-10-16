@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { NewTabNote } from "@/components/ui/NewTabNote";
 import { externalLinkProps } from "@/lib/utils";
 
 const components: MDXComponents = {
@@ -23,14 +24,20 @@ const components: MDXComponents = {
       {...props}
     />
   ),
-  a: ({ href = "", ...props }) => (
-    <a
-      href={href}
-      {...externalLinkProps(href)}
-      className="font-medium text-fg underline decoration-border-strong underline-offset-4 transition-[text-decoration-color] duration-150 hover:decoration-fg"
-      {...props}
-    />
-  ),
+  a: ({ href = "", children, ...props }) => {
+    const linkProps = externalLinkProps(href);
+    return (
+      <a
+        href={href}
+        {...linkProps}
+        className="font-medium text-fg underline decoration-border-strong underline-offset-4 transition-[text-decoration-color] duration-150 hover:decoration-fg"
+        {...props}
+      >
+        {children}
+        {linkProps.target && <NewTabNote />}
+      </a>
+    );
+  },
   strong: (props) => <strong className="font-semibold text-fg" {...props} />,
   code: (props) => (
     <code

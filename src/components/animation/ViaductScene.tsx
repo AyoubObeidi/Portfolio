@@ -15,6 +15,9 @@ const train =
 // Smoke and locomotive share one 678×343 canvas; the smoke pivots on the chimney top.
 const layer = "block h-auto w-full max-w-none";
 const smokeLayer = `${layer} absolute inset-0 origin-[93.5%_61.8%]`;
+// The train's rendered width (678 × --u), so phones don't fetch the 1080w file.
+const trainSizes =
+  "(min-width: 1475px) 475px, (min-width: 600px) calc(27.12vw + 75px), 238px";
 
 // The train rolls left to right across the full-width viaduct, looping while the
 // footer is on screen, its smoke billowing as it goes. Without JS or under reduced
@@ -102,7 +105,7 @@ export function ViaductScene() {
           alt=""
           width={678}
           height={343}
-          sizes="475px"
+          sizes={trainSizes}
           className={layer}
         />
         <Image
@@ -111,7 +114,7 @@ export function ViaductScene() {
           alt=""
           width={678}
           height={343}
-          sizes="475px"
+          sizes={trainSizes}
           className={smokeLayer}
         />
       </div>

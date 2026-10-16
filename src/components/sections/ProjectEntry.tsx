@@ -25,6 +25,7 @@ export function ProjectEntry({ project, number }: ProjectEntryProps) {
           alt={project.image.alt}
           url={project.live}
           sizes="(min-width: 42.5rem) 36.5rem, 86vw"
+          preload={number === 1}
           lift
         />
       </Link>

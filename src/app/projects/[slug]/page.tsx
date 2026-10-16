@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProject, loadCaseStudy } from "@/lib/content";
 import { projects } from "@/lib/projects";
+import { pageMetadata } from "@/lib/site";
 import { CaseStudyHeader } from "@/components/sections/CaseStudyHeader";
 import { TechTags } from "@/components/ui/TechTags";
 
@@ -15,7 +16,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
-  return { title: project.name, description: project.summary };
+  return pageMetadata({
+    title: project.name,
+    description: project.summary,
+    path: `/projects/${slug}`,
+    type: "article",
+  });
 }
 
 export default async function CaseStudyPage({

@@ -3,11 +3,13 @@ import { Suspense } from "react";
 import { PageIntro } from "@/components/animation/PageIntro";
 import { AnalyticsFallback } from "@/components/sections/AnalyticsFallback";
 import { AnalyticsReport } from "@/components/sections/AnalyticsReport";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Analytics",
   description: "Real traffic for this site, from Vercel Web Analytics.",
-};
+  path: "/analytics",
+});
 
 export default function AnalyticsPage({ searchParams }: PageProps<"/analytics">) {
   return (

@@ -5,6 +5,8 @@ import { ClickSound } from "@/components/ui/ClickSound";
 import { InlineScript } from "@/components/ui/InlineScript";
 import { Footer } from "@/components/sections/Footer";
 import { SiteNav } from "@/components/sections/SiteNav";
+import { profile } from "@/lib/profile";
+import { siteDescription, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,12 +20,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: {
-    template: "%s · Ayoub Obeidi",
-    default: "Ayoub Obeidi · Frontend Developer",
+    template: `%s · ${profile.name}`,
+    default: siteTitle,
   },
-  description:
-    "Ayoub Obeidi builds fast, considered interfaces for the web, mostly with React and Next.js.",
+  description: siteDescription,
+  authors: [{ name: profile.name, url: siteUrl }],
+  creator: profile.name,
+  openGraph: {
+    type: "website",
+    siteName: profile.name,
+    locale: "en_US",
+    title: siteTitle,
+    description: siteDescription,
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

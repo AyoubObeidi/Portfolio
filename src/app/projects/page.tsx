@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
+import { pageMetadata } from "@/lib/site";
 import { PageIntro } from "@/components/animation/PageIntro";
 import { ProjectEntry } from "@/components/sections/ProjectEntry";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Projects",
   description:
     "Things I've built: a learning platform, a private CV builder and a retail surveillance system.",
-};
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (

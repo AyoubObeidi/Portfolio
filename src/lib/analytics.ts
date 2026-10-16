@@ -171,10 +171,11 @@ export async function getTraffic(range: RangeKey): Promise<TrafficResult> {
     const [totals, previous, series, pages, referrers, countries, devices] =
       await Promise.all([
         query<CountResponse>(creds, "count", window),
+        // Optional: the Hobby plan only keeps 31 days, so the period before 30D is out of reach.
         query<CountResponse>(creds, "count", {
           since: String(previousSince),
           until: String(since - 1),
-        }),
+        }).catch(() => null),
         query<AggregateResponse>(creds, "aggregate", { ...window, by }),
         top("requestPath", 5),
         top("referrerHostname", 5),
@@ -187,7 +188,8 @@ export async function getTraffic(range: RangeKey): Promise<TrafficResult> {
       report: {
         range,
         totals: totals.data,
-        previous: previous.data.pageviews > 0 ? previous.data : null,
+        previous:
+          previous && previous.data.pageviews > 0 ? previous.data : null,
         series: fillSeries(series.data, since, count, step),
         topPages: toTopItems(pages.data, "requestPath"),
         referrers: toTopItems(

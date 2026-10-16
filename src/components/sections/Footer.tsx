@@ -1,6 +1,7 @@
 import { profile } from "@/lib/profile";
 import { ViaductScene } from "@/components/animation/ViaductScene";
 import { BrandIcon } from "@/components/ui/BrandIcon";
+import { EmailButton } from "@/components/ui/EmailButton";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { Panel } from "@/components/ui/Panel";
 import { UiIcon } from "@/components/ui/UiIcon";
@@ -40,9 +41,7 @@ export function Footer() {
               </li>
             )}
             <li>
-              <LinkButton href={`mailto:${profile.email}`} variant="primary">
-                Email me
-              </LinkButton>
+              <EmailButton />
             </li>
           </ul>
         </Panel>

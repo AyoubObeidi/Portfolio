@@ -45,3 +45,5 @@ next-env.d.ts
 .claude
 **/CLAUDE.md
 **/AGENT.md
+.vercel
+.env*

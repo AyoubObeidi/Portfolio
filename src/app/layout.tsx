@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { ContactDialog } from "@/components/animation/ContactDialog";
 import { ClickSound } from "@/components/ui/ClickSound";
 import { InlineScript } from "@/components/ui/InlineScript";
 import { Footer } from "@/components/sections/Footer";
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
           <Footer />
         </div>
+        <ContactDialog />
         <ClickSound />
         <Analytics />
       </body>

@@ -1,12 +1,12 @@
 import { profile } from "@/lib/profile";
-import { EmailButton } from "@/components/ui/EmailButton";
+import { ContactButton } from "@/components/ui/ContactButton";
 import { LinkButton } from "@/components/ui/LinkButton";
 
 export function ContactRow() {
   return (
     <ul className="flex flex-wrap gap-2">
       <li>
-        <EmailButton />
+        <ContactButton />
       </li>
       {profile.links.map((link) => (
         <li key={link.label}>

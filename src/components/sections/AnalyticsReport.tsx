@@ -1,6 +1,5 @@
 import { getTraffic, parseRange, RANGES } from "@/lib/analytics";
 import { StatTile } from "./StatTile";
-import { TopList } from "./TopList";
 import { TrafficPanel } from "./TrafficPanel";
 
 interface AnalyticsReportProps {
@@ -29,8 +28,7 @@ export async function AnalyticsReport({ searchParams }: AnalyticsReportProps) {
     );
   }
 
-  const { totals, previous, series, topPages, referrers, countries, devices } =
-    result.report;
+  const { totals, previous, series } = result.report;
 
   if (totals.pageviews === 0) {
     return (
@@ -60,18 +58,6 @@ export async function AnalyticsReport({ searchParams }: AnalyticsReportProps) {
       </div>
 
       <TrafficPanel range={range} series={series} />
-
-      <section aria-labelledby="breakdown" className="mt-6">
-        <h2 id="breakdown" className="mb-3 text-meta font-medium">
-          Where visitors come from
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <TopList title="Top pages" items={topPages} />
-          <TopList title="Referrers" items={referrers} />
-          <TopList title="Countries" items={countries} />
-          <TopList title="Devices" items={devices} />
-        </div>
-      </section>
     </div>
   );
 }

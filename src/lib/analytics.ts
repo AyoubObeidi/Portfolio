@@ -27,22 +27,12 @@ export interface SeriesPoint extends Totals {
   timestamp: string;
 }
 
-export interface TopItem {
-  label: string;
-  pageviews: number;
-  visitors: number;
-}
-
 export interface TrafficReport {
   range: RangeKey;
   totals: Totals;
   // Null when there's nothing to compare against (no traffic in the previous period).
   previous: Totals | null;
   series: SeriesPoint[];
-  topPages: TopItem[];
-  referrers: TopItem[];
-  countries: TopItem[];
-  devices: TopItem[];
 }
 
 export type TrafficResult =
@@ -110,35 +100,6 @@ function fillSeries(
   });
 }
 
-function toTopItems(
-  rows: AggregateResponse["data"],
-  dimension: string,
-  labelFor: (value: string) => string = (value) => value,
-): TopItem[] {
-  return rows
-    .filter((row) => row[dimension] !== "Others")
-    .map((row) => ({
-      label: labelFor(String(row[dimension] ?? "")),
-      pageviews: row.pageviews,
-      visitors: row.visitors,
-    }));
-}
-
-const REGIONS = new Intl.DisplayNames(["en"], { type: "region" });
-
-function countryName(code: string) {
-  if (!code) return "Unknown";
-  try {
-    return REGIONS.of(code) ?? code;
-  } catch {
-    return code;
-  }
-}
-
-function capitalize(value: string) {
-  return value ? value[0].toUpperCase() + value.slice(1) : "Unknown";
-}
-
 // Cached for 30 minutes so page views don't hit the API (or its rate limits) on every request.
 export async function getTraffic(range: RangeKey): Promise<TrafficResult> {
   "use cache";
@@ -160,28 +121,16 @@ export async function getTraffic(range: RangeKey): Promise<TrafficResult> {
   const previousSince = since - count * step;
 
   const window = { since: String(since), until: String(until) };
-  const top = (dimension: string, limit: number) =>
-    query<AggregateResponse>(creds, "aggregate", {
-      ...window,
-      by: dimension,
-      limit: String(limit),
-    });
-
   try {
-    const [totals, previous, series, pages, referrers, countries, devices] =
-      await Promise.all([
-        query<CountResponse>(creds, "count", window),
-        // Optional: the Hobby plan only keeps 31 days, so the period before 30D is out of reach.
-        query<CountResponse>(creds, "count", {
-          since: String(previousSince),
-          until: String(since - 1),
-        }).catch(() => null),
-        query<AggregateResponse>(creds, "aggregate", { ...window, by }),
-        top("requestPath", 5),
-        top("referrerHostname", 5),
-        top("country", 5),
-        top("deviceType", 3),
-      ]);
+    const [totals, previous, series] = await Promise.all([
+      query<CountResponse>(creds, "count", window),
+      // Optional: the Hobby plan only keeps 31 days, so the period before 30D is out of reach.
+      query<CountResponse>(creds, "count", {
+        since: String(previousSince),
+        until: String(since - 1),
+      }).catch(() => null),
+      query<AggregateResponse>(creds, "aggregate", { ...window, by }),
+    ]);
 
     return {
       status: "ok",
@@ -191,14 +140,6 @@ export async function getTraffic(range: RangeKey): Promise<TrafficResult> {
         previous:
           previous && previous.data.pageviews > 0 ? previous.data : null,
         series: fillSeries(series.data, since, count, step),
-        topPages: toTopItems(pages.data, "requestPath"),
-        referrers: toTopItems(
-          referrers.data,
-          "referrerHostname",
-          (host) => host || "Direct",
-        ),
-        countries: toTopItems(countries.data, "country", countryName),
-        devices: toTopItems(devices.data, "deviceType", capitalize),
       },
     };
   } catch (error) {

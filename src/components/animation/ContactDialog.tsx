@@ -9,6 +9,7 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import { isPhone, prefersReducedMotion } from "@/lib/motion";
 import { useConversation } from "@/lib/useConversation";
 import { useSheetDrag } from "@/lib/useSheetDrag";
+import { useSheetFit } from "@/lib/useSheetFit";
 
 // Links rendered by ContactButton; they stay plain mailto links until this hydrates.
 const TRIGGER = '[data-dialog-trigger="contact"]';
@@ -16,7 +17,8 @@ const TRIGGER = '[data-dialog-trigger="contact"]';
 const FOCUSABLE = "input, textarea, button:not(:disabled)";
 
 // The contact chat. Desktop: grows out of the clicked button and shrinks back into it.
-// Phones: a bottom sheet that can be dragged down. Escape closes instantly.
+// Phones: a bottom sheet, as tall as the conversation, that can be dragged down.
+// Escape closes instantly.
 export function ContactDialog() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -28,6 +30,7 @@ export function ContactDialog() {
   const { start } = conversation;
 
   useSheetDrag(dialogRef, panelRef, handleRef);
+  useSheetFit(dialogRef, panelRef);
 
   const { contextSafe } = useGSAP(
     (_, contextSafe) => {
@@ -42,9 +45,12 @@ export function ContactDialog() {
         opener = trigger;
         dialog.showModal();
         start();
-        dockRef.current
-          ?.querySelector<HTMLElement>(FOCUSABLE)
-          ?.focus({ preventScroll: true });
+        // On phones that would open the keyboard over the topic choices,
+        // so focus goes to the sheet itself instead of a control.
+        const target = isPhone()
+          ? panel
+          : dockRef.current?.querySelector<HTMLElement>(FOCUSABLE);
+        target?.focus({ preventScroll: true });
         morph.current = null;
         if (prefersReducedMotion()) {
           gsap.from(panel, { opacity: 0, duration: 0.2 });
@@ -126,11 +132,12 @@ export function ContactDialog() {
       ref={dialogRef}
       aria-labelledby="contact-chat-title"
       onClick={(e) => e.target === e.currentTarget && close()}
-      className="m-auto h-[min(37.5rem,calc(100dvh-3rem))] w-[min(var(--container-chat),calc(100vw-2rem))] max-h-none max-w-none overflow-visible bg-transparent p-0 text-fg backdrop:animate-fade-in backdrop:bg-backdrop max-sm:mb-0 max-sm:h-[88dvh] max-sm:w-full"
+      className="m-auto h-[min(37.5rem,calc(100dvh-3rem))] w-[min(var(--container-chat),calc(100vw-2rem))] max-h-none max-w-none overflow-visible bg-transparent p-0 text-fg backdrop:animate-fade-in backdrop:bg-backdrop max-sm:mb-(--keyboard,0px) max-sm:h-fit max-sm:w-full"
     >
       <div
         ref={panelRef}
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-window max-sm:rounded-b-none max-sm:border-b-0"
+        tabIndex={-1}
+        className="relative flex h-full flex-col overflow-hidden rounded-2xl outline-none border border-border bg-surface shadow-window max-sm:h-auto max-sm:max-h-[calc(var(--viewport,100dvh)-3.5rem)] max-sm:rounded-b-none max-sm:border-b-0"
       >
         <div
           data-morph-label

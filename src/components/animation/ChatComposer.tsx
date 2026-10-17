@@ -17,7 +17,8 @@ interface ChatComposerProps {
 
 const FIELD =
   // The rounded wrapper draws the focus ring, so the field skips the global one.
-  "block w-full resize-none bg-transparent px-3.5 py-2.25 text-sm/5 text-fg outline-none! placeholder:text-fg-subtle";
+  // 16px on phones: iOS Safari zooms the page into any smaller field on focus.
+  "block w-full resize-none bg-transparent px-3.5 py-2.25 text-base/5 text-fg sm:text-sm/5 outline-none! placeholder:text-fg-subtle";
 
 // Keyed by step in ChatDock, so each question gets a fresh composer.
 export function ChatComposer({
@@ -149,7 +150,8 @@ export function ChatComposer({
       <p
         id={hintId}
         aria-live="polite"
-        className="mx-1 mt-2 min-h-4.5 text-meta/4.5 text-fg-subtle data-[error=true]:text-danger-fg"
+        // Phones have no keyboard hint, so the line only takes space for an error.
+        className="mx-1 mt-2 min-h-4.5 text-meta/4.5 text-fg-subtle data-[error=true]:text-danger-fg max-sm:not-data-[error=true]:mt-0 max-sm:not-data-[error=true]:min-h-0"
         data-error={showError}
       >
         {showError ? (

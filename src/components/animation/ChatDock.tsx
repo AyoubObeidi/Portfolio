@@ -61,7 +61,8 @@ export function ChatDock({ conversation, onClose, onSent, ref }: ChatDockProps) 
     <div
       ref={ref}
       data-chat-part
-      className="border-t border-border bg-surface p-3"
+      // The bottom padding clears the iPhone home bar when the page runs under it.
+      className="border-t border-border bg-surface p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
     >
       {mode === "compose" && (
         <ChatComposer

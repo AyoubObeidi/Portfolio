@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { OpenToWorkBadge } from "@/components/animation/OpenToWorkBadge";
+import { PixelAvatar } from "@/components/animation/PixelAvatar";
 import { profile } from "@/lib/profile";
 
 function initials(name: string) {
@@ -16,18 +16,17 @@ export function ProfileHeader() {
   return (
     <header className="flex items-center gap-5">
       {profile.avatar ? (
-        <Image
+        <PixelAvatar
           src={profile.avatar.src}
           alt={profile.avatar.alt}
-          width={72}
-          height={72}
-          preload
-          className="size-18 shrink-0 rounded-xl object-cover"
+          animatedSrc={profile.avatar.animatedSrc}
+          pixelSteps={profile.avatar.pixelSteps}
+          size={96}
         />
       ) : (
         <div
           aria-hidden="true"
-          className="grid size-18 shrink-0 place-items-center rounded-xl bg-placeholder text-title font-medium text-fg-body"
+          className="grid size-24 shrink-0 place-items-center rounded-xl bg-placeholder text-title font-medium text-fg-body"
         >
           {initials(profile.name)}
         </div>

@@ -37,7 +37,14 @@ export interface Profile {
   available: boolean;
   location: string;
   timeZone: string;
-  avatar?: { src: string; alt: string };
+  // src is the still frame; animatedSrc plays unless reduced motion is on.
+  // pixelSteps: low-res copies of src (coarsest first) for the pixel resolve on load.
+  avatar?: {
+    src: string;
+    animatedSrc?: string;
+    alt: string;
+    pixelSteps: string[];
+  };
   email: string;
   resume?: string;
   // First paragraph is the lead; the rest render quieter.
@@ -54,8 +61,16 @@ export const profile: Profile = {
   location: "Djelfa, Algeria",
   // IANA time zone for the live clock in the nav.
   timeZone: "Africa/Algiers",
-  // Add a photo to public/ and set e.g. { src: "/avatar.jpg", alt: "Portrait of …" }.
-  avatar: undefined,
+  avatar: {
+    src: "/avatar.png",
+    animatedSrc: "/avatar.webp",
+    alt: "Pixel-art portrait of Ayoub in a dark beanie and hoodie",
+    pixelSteps: [
+      "/avatar/pixel-6.png",
+      "/avatar/pixel-12.png",
+      "/avatar/pixel-24.png",
+    ],
+  },
   email: "ayoubmacos05@gmail.com",
   // Add your CV to public/ and set e.g. "/resume.pdf" to show a Resume button in the footer.
   resume: undefined,

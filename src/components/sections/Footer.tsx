@@ -1,7 +1,7 @@
 import { profile } from "@/lib/profile";
 import { ViaductScene } from "@/components/animation/ViaductScene";
 import { BrandIcon } from "@/components/ui/BrandIcon";
-import { EmailButton } from "@/components/ui/EmailButton";
+import { ContactButton } from "@/components/ui/ContactButton";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { Panel } from "@/components/ui/Panel";
 import { UiIcon } from "@/components/ui/UiIcon";
@@ -41,7 +41,7 @@ export function Footer() {
               </li>
             )}
             <li>
-              <EmailButton />
+              <ContactButton />
             </li>
           </ul>
         </Panel>

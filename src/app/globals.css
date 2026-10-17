@@ -21,6 +21,8 @@
   --color-success-fg: oklch(0.48 0.15 150);
   --color-success-dot: oklch(0.65 0.2 150);
   --color-danger-fg: oklch(0.5 0.17 25);
+  /* Dims the page behind the contact dialog. */
+  --color-backdrop: oklch(0.2 0.01 90 / 0.28);
   /* Analytics chart series. Both keep 3:1 against --color-surface for non-text contrast. */
   --color-chart-visitors: oklch(0.55 0.1 185);
   --color-chart-pageviews: oklch(0.55 0.19 15);
@@ -48,6 +50,7 @@
   --text-display--line-height: 2rem;
 
   --container-page: 42.5rem;
+  --container-chat: 30rem;
 
   /* Glossy primary button: soft lift outside, lit top edge inside. */
   --shadow-metal: 0 1px 2px oklch(0.2 0.01 90 / 0.08), 0 6px 14px -6px oklch(0.2 0.01 90 / 0.22);
@@ -58,6 +61,27 @@
 
   /* Strong ease-out for UI feedback (press, enter). */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Contact chat: typing dots and the dialog backdrop. */
+  --animate-blink: blink 1s linear infinite;
+  --animate-fade-in: fade-in 200ms var(--ease-out);
+
+  @keyframes blink {
+    0%,
+    60%,
+    100% {
+      opacity: 0.3;
+    }
+    30% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 /* Static chrome shown before the shader loads, without JS, or without WebGL. */
@@ -120,6 +144,11 @@
 
 html {
   color-scheme: light;
+}
+
+/* Keeps the page still behind an open modal, so a dialog can close back into its trigger. */
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 body {

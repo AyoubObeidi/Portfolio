@@ -26,13 +26,14 @@ export function ChatHeader({ status, answered, onClose, ref }: ChatHeaderProps) 
     <header
       ref={ref}
       data-chat-part
-      className="relative border-b border-border px-4 pt-3.5 pr-13 pb-3 max-sm:cursor-grab max-sm:touch-none"
+      className="relative border-b border-border px-4 pt-3.5 pb-3 max-sm:cursor-grab max-sm:touch-none"
     >
       <div
         aria-hidden
         className="mx-auto -mt-1 mb-2.5 hidden h-1 w-9 rounded-full bg-border-strong max-sm:block"
       />
-      <div className="flex items-center gap-3">
+      {/* Room for the close button; the progress bars below run full width. */}
+      <div className="flex items-center gap-3 pr-9">
         <div className="relative size-9.5 shrink-0">
           {profile.avatar ? (
             <Image
@@ -88,7 +89,7 @@ export function ChatHeader({ status, answered, onClose, ref }: ChatHeaderProps) 
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="absolute top-3 right-3 grid size-8 cursor-pointer place-items-center rounded-lg text-fg-muted transition-colors duration-150 hover:bg-surface-raised hover:text-fg"
+        className="absolute top-3 right-3 grid size-8 cursor-pointer max-sm:top-5 max-sm:right-1.5 max-sm:size-11 place-items-center rounded-lg text-fg-muted transition-colors duration-150 hover:bg-surface-raised hover:text-fg"
       >
         <svg
           viewBox="0 0 16 16"

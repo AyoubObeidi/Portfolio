@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 // Sizes are in source pixels of the engraving, scaled by --u (px per source px).
 // The train's wheels sink 7px into the deck so it sits on the parapet, not above it.
@@ -81,16 +81,16 @@ export function ViaductScene() {
             0,
           );
 
-        // Only runs while the footer is on screen.
-        for (const animation of [ride, billow]) {
-          ScrollTrigger.create({
-            trigger: stage,
-            animation,
-            start: "top bottom",
-            end: "bottom top",
-            toggleActions: "play pause resume pause",
-          });
-        }
+        // Only runs while the footer is on screen. The footer outlives route
+        // changes, so watch the element itself rather than scroll positions that
+        // go stale when the page above it changes height.
+        const observer = new IntersectionObserver(([entry]) => {
+          for (const animation of [ride, billow]) {
+            animation.paused(!entry.isIntersecting);
+          }
+        });
+        observer.observe(stage);
+        return () => observer.disconnect();
       });
     },
     { scope },
